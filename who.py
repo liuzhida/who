@@ -129,20 +129,21 @@ class PersonHandler(BaseHandler):
             return
         data = self.request.body
         data = json.loads(data)
-        # result['name']      = data[1]
-        # result['sex']       = data[2]
-        # result['function']  = data[3]
-        # result['PA']        = data[4]
-        # result['manager']   = data[5]
-        # result['phone']     = data[6]
-        # result['mail']      = data[7]
-        # result['edate']     = data[9]
-        # result['hometown']  = data[10]
-        # result['xingzuo']   = data[12]
-        # result['school']    = data[15]
+        result = dict()
+        result['name']      = data['name']    
+        result['sex']       = data['sex']     
+        result['function']  = data['function']
+        result['PA']        = data['PA']      
+        result['manager']   = data['manager'] 
+        result['phone']     = data['phone']   
+        result['mail']      = data['mail']    
+        result['edate']     = data['edate']   
+        result['hometown']  = data['hometown']
+        result['xingzuo']   = data['xingzuo'] 
+        result['school']    = data['school']  
+        
+        c.hmset("person:" + id, result)
 
-        # self.render('index.html', name=name)
-        # data = c.hgetall("person:" + id)
         self.finish()
 
 
