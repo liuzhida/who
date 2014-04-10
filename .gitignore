@@ -1,0 +1,10 @@
+*.pyc
+log
+send*
+*.sh
+logs
+static/*
+*.csv
+*.log
+.DS_Store
+config.py
