@@ -35,10 +35,15 @@ def person_index():
         for i in lazy_pinyin(name):
             print i,
             c.sadd("index:" + i, key)
+            c.sadd("index_p:" + i, key)
+        c.sadd("index:" + "".join(lazy_pinyin(name)), key)
+        c.sadd("index:" + "".join(lazy_pinyin(name)[-2:]), key)
+
 
         #school
 
         word = data['school']
+        c.sadd("index:" + word, key)
         if word:
             for i in seg_txt(word):
                 print i,
@@ -46,24 +51,27 @@ def person_index():
 
         #xingzuo
         word = data['xingzuo']
-        if word:
-            for i in seg_txt(word):
-                print i,
-                c.sadd("index:" + i, key)
+        c.sadd("index:" + word, key)
+        #if word:
+        #    for i in seg_txt(word):
+        #        print i,
+        #        c.sadd("index:" + i, key)
 
         #hometown
         word = data['hometown']
-        if word:
-            for i in seg_txt(word):
-                print i,
-                c.sadd("index:" + i, key)
+        c.sadd("index:" + word, key)
+        #if word:
+        #    for i in seg_txt(word):
+        #        print i,
+        #        c.sadd("index:" + i, key)
 
         #sex
         word = data['sex']
-        if word:
-            for i in seg_txt(word):
-                pass
-                c.sadd("index:" + i, key)
+        c.sadd("index:" + word, key)
+        #if word:
+        #    for i in seg_txt(word):
+        #        pass
+        #        c.sadd("index:" + i, key)
 
         print 
 
@@ -103,9 +111,30 @@ def product_index():
         print
 
 
+def function_index():
+    for key in c.keys("function:*"):
+        data = c.hgetall(key)
+        name = data['name']
+
+        if "/" in name:
+            name = name.split("/")
+        else:
+            name = name.split()
+
+        for n in name:
+            n = n.lower()
+            n = n.strip()
+            print n, "|",
+            c.sadd("index:" + n, key)
+        print
+
+
 if __name__ == "__main__":
-    #for key in c.keys("index:*"):
-    #    c.delete(key)
+    for key in c.keys("index:*"):
+        c.delete(key)
     person_index()
     pa_index() 
     product_index()
+    function_index()
+    #c.sadd("index:zhida" , "person:cheng")
+    #c.sadd("index:machao" , "person:chaom")

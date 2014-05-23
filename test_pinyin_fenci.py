@@ -10,3 +10,4 @@ from pinyin_trie import PinyinTokenizer, Trie, TrieNode
 
 tokenizer = PinyinTokenizer()
 print tokenizer.tokenize('woaibeijingtiananmentiananmenshangtaiyangsheng')
+print tokenizer.tokenize('zhida')

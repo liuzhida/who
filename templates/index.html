@@ -1,178 +1,62 @@
 <!doctype html>
-<html>
-
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <head>
+    <title>继续找豌豆</title>
     <meta charset="utf-8">
-    <title>我要请假</title>
-    <link rel="stylesheet" href="http://wandoulabs.com/static/css/bootstrap.flat.css">
-    <link rel="stylesheet" href="http://wandoulabs.com/static/css/bootstrap-responsive.flat.css">
-    <link rel="stylesheet" href="/static/style/daterangepicker-bs2.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+    <link rel="stylesheet" href="/components/select2/select2.css">
+    <link rel="stylesheet" href="/styles/aa814fd5.main.css"/>
 </head>
 
 <body>
-    <div class="container" style="width: auto; max-width: 800px;">
-        <div class="navbar navbar-inner">
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
 
-            <h2>Hello, {{ name }}!
-                <a class="pull-right" href="/logout" style="font-size:18px;">Logout</a>
-            </h2>
-            </h3>
-        </div>
-        <!-- Main hero unit for a primary marketing message or call to action -->
-        <div class="hero-unit" style="background: #eff0f2">
-            <h1>
-                请假，从未如此简单。
-            </h1>
-            <br>
+    <!--[if lt IE 9]>
+      <script src="/components/es5-shim/es5-shim.js"></script>
+      <script src="/components/json3/lib/json3.min.js"></script>
+    <![endif]-->
 
-            <h3>在贵荚，请假也是一件高大上的事情。</h3>
-            <p>填写申请后自动发送给manager审批，审批通过后自动通知您所在的team。</p>
-            <br>
-            <a data-toggle="modal" data-target="#modal-vacation" href="#modal-vacation" class="btn btn-primary btn-large">我要请假</a>
-        </div>
-        <!-- Example row of columns -->
-        <div class="row-fluid">
-
-            <div class="span6">
-                <div class="well" style="background-color: #ffffff;">
-
-                    <h2>最近谁请假了</h2>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>名字</th>
-                                <th style="width:20%">天数</th>
-                                <th style="width:20%">状态</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="key" class="entry">
-
-                                <td>
-                                    刘志达
-                                </td>
-                                <td style="width:20%">
-                                    <span class="text-success">3天</span>
-                                </td>
-                                <td style="width:20%">
-                                    <span class="label label-success ">Approved</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <a class="btn" href="#">View details »</a>
+    <!-- Application content -->
+    <div>
+        <nav class="uk-navbar who-navbar" ng-controller="navbarCtrl">
+            <a class="uk-navbar-brand who-navbar-content" href="/" alt="找豌豆"><img src="http://img.wdjimg.com/who/logo.png"></a>
+            <div class="uk-navbar-flip">
+                <div class="who-navbar-content home-navbar-search">
+                    <form class="uk-display-inline-block">
+                        <i class="uk-icon-search"></i>
+                        <input ng-model="navbarQuery" ng-keydown="keydownHandler($event)" id="search" type="text" placeholder="通过名字，项目，职位找豌豆...">
+                        <i class="uk-icon-spinner uk-icon-spin" ng-show="isShowSearchIcon"></i>
+                    </form>
                 </div>
+                <!-- <div class="who-navbar-content home-navbar-export">
+                    <button class="uk-button"><i class="uk-icon-download"></i>导出所有豌豆通讯录.csv</button>
+                </div> -->
+                <a class="who-navbar-content navbar-avatar" ng-href="/wandou/{{currentUser.id}}">
+                    <img ng-src="{{currentUser.img}}" alt="{{currentUser.name}}">
+                    <span>{{currentUser.name}}</span>
+                </a>
             </div>
-
-            <div class="span6">
-                <div class="well" style="background-color: #ffffff;">
-
-                    <h2>我请过的假</h2>
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th class="col-name">名字</th>
-                                <th class="col-dueon">天数</th>
-                                <th class="col-status">状态</th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr id="key" class="entry">
-
-                                <td class="col-name">
-                                    刘志达
-                                </td>
-                                <td class="due_on">
-                                    <span class="text-warning">3天</span>
-                                </td>
-                                <td class="col-status">
-                                    <span class="label label-success ">Approved</span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <a class="btn" href="#">View details »</a>
-                </div>
-            </div>
-
-        </div>
-
-    </div>
-    <div class="footer">
-        <div class="container" style="width: auto; max-width: 800px;">
-            <hr>
-            <p class="text-muted credit">
-                &copy; 2013 Wandou Labs - Designed & Developed <a href="http://weibo.com/kyle">@zhida</a>.
-            </p>
-        </div>
-    </div>
-    <!-- /container -->
-    <div id="modal-vacation" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <form action="/" method="post" style="margin-bottom: 0">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">×</button>
-                <h3>Product Design Review 状态</h3>
-            </div>
-            <div class="modal-body">
-                <div class="form-horizontal">
-                    <div class="control-group">
-                        <label class="control-label" for="project">xxxx<sup>*</sup>
-                        </label>
-                        <div class="controls">
-                            <select id="project" class="input-small" name="project" required>
-                                <option></option>
-                                <option>projectname</option>
-                            </select>
-                            <input type="text" class="input-large" id="name" name="name" required value="" />
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="notes">xxxx</label>
-                        <div class="controls">
-                            <textarea type="text" class="input-xlarge" rows="6" id="notes" name="notes">test</textarea>
-                            <p class="help-block"></p>
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="reservationtime">选择请假时间范围:</label>
-                        <div class="controls">
-                            <div class="input-prepend">
-                                <span class="add-on"><i class="icon-calendar"></i>
-                                </span>
-                                <input type="text" name="reservation" id="reservationtime" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" data-loading-text="保存ing..." class="btn btn-primary">我要请假</button>
-                <button class="btn" data-dismiss="modal">还是干活吧</button>
-            </div>
-        </form>
+        </nav>
+        <!-- <div ng-include="'views/menu/_MenuView.html'"></div> -->
+        <div class="who-container" autoscroll="" ng-view=""></div>
     </div>
 
+    <script src="///ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="/components/select2/select2.js"></script>
+    <script src="/components/angular/angular.js"></script>
+    <script src="/components/angular-ui-select2/src/select2.js"></script>
+
+    <script src="/scripts/3a5595e5.plugins.js"></script>
+
+    <script src="/scripts/d1f7f062.modules.js"></script>
+    <script src="/components/requirejs/require.js" data-main="/scripts/main"></script>
 </body>
-<script src="http://wandoulabs.com/static/js/libs/jquery.min.js"></script>
-<script src="http://wandoulabs.com/static/js/libs/bootstrap.min.js"></script>
-<script src="/static/js/moment.js"></script>
-<script src="/static/js/daterangepicker.js"></script>
-<script>
-$(document).ready(function() {
-    $('#reserflaflattvationtime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        format: 'MM/DD/YYYY h:mm A'
-    });
-});
-</script>
-
-
 </html>

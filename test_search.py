@@ -8,10 +8,11 @@
 # Description: 
 from mmseg import seg_txt
 from config import c
+from pinyin_trie import PinyinTokenizer, Trie, TrieNode
 
-def search():
+def search(word):
 
-    word = "刘志达"
+    
     key = list()
     data = list()
 
@@ -31,16 +32,50 @@ def search():
     #        if c.exists("index:" + n):
     #            key.append("index:" + n)
 
+    #for n in seg_txt(word):
+    #    if c.exists("index:" + n):
+    #        key.append("index:" + n)
+
+    #if len(key) == 1:
+    #    ids = c.smembers(key[0])
+    #else:
+    #    ids = c.sinter(key)
+    if len(key) == 0 and ord(word[0]) <= 127:
+        print "char"
+        word = word.lower()
+        tokenizer = PinyinTokenizer()
+        keys = tokenizer.tokenize(word)
+        if keys:
+            print "keys exists"
+            for n in keys:
+                print n
+                if c.exists("index:" + n):
+                    print "index exists"
+                    key.append("index:" + n)
+                else:
+                    print "index not exists"
+                    _keys = c.keys("index_p:" + n + "*")
+                    print _keys
+                    key.extend(_keys)
+        else:
+            print "keys *"
+            print word
+            _keys = c.keys("index:" + word + "*")
+            key.extend(_keys)
+            print _keys
+
     for n in seg_txt(word):
         if c.exists("index:" + n):
             key.append("index:" + n)
 
     if len(key) == 1:
         ids = c.smembers(key[0])
+    elif len(key) == 0:
+        ids = []
+        print "Query None"
+        return
     else:
         ids = c.sinter(key)
-
-    
     
     for id in ids:
         print id
@@ -53,4 +88,4 @@ def search():
 
 
 if __name__ == "__main__":
-    search()
+    search("zhida")
