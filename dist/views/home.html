@@ -1,0 +1,72 @@
+<div class="who-home who-container">
+
+    <!-- all product areas -->
+    <div>
+        <h2>Product Areas(PA)</h2>
+        <ul class="who-color-blocks uk-list uk-clearfix">
+            <li class="repeater" ng-repeat="item in areaList">
+                <a ng-href="/#/area/{{item.name}}">
+                    <div class="who-placehold-item front">
+                        <b class="who-placehold-item-title">
+                            {{item.name}}
+                        </b>
+                        <span class="who-placehold-item-subtitle">{{item.number}}成员</span>
+                    </div>
+                    <div class="who-placehold-item back" ng-hide="true">
+                        <p>{{item.objective}}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- all products -->
+    <!-- <div>
+        <h2>Product</h2>
+        <ul class="who-color-blocks uk-list uk-clearfix">
+            <li class='fx-fade-down fx-easing-bounce' ng-repeat="item in productList">
+                <a ng-href="/#/product/{{item.id}}">
+                    <div class="who-placehold-item front">
+                        <b class="who-placehold-item-title">{{item.name}}</b>
+                    </div>
+                    <div class="who-placehold-item back" ng-hide="true">
+                        <p>{{item.objective}}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div> -->
+
+    <!-- all products -->
+    <div>
+        <h2>Function</h2>
+        <ul class="who-color-blocks uk-list uk-clearfix">
+            <li class='fx-fade-down fx-easing-bounce' ng-repeat="item in functionList">
+                <a ng-href="/#/function/{{item.id}}">
+                    <div class="who-placehold-item front">
+                        <b class="who-placehold-item-title">{{item.name}}</b>
+                        <span class="who-placehold-item-subtitle">{{item.number}}成员</span>
+                    </div>
+                    <div class="who-placehold-item back" ng-hide="true">
+                        <p>{{item.objective}}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- wandou showcase -->
+    <div>
+        <h2>豌豆展台</h2>
+        <ul class="uk-list uk-clearfix who-avatar-list">
+            <li ng-repeat="item in personList|limitTo: 8">
+                <a href="/#/wandou/{{item.id}}">
+                    <div class="img" style="background-image:url({{item.img|checkImg}})"></div>
+                    <span class="label">新豌豆</span>
+                </a>
+                <p class="uk-text-center">{{item.name}}</p>
+            </li>
+        </ul>
+    </div>
+</div>
+

@@ -1,0 +1,26 @@
+<div class="w-account-ctn a-module-login">
+        <form novalidate="" autocomplete="off" ng-init="username=''">
+            <fieldset>
+                <legend class="h3">登录 找豌豆 <span class="w-text-info"></span></legend>
+                <div class="w-control-group a-field-username">
+                    <label class="w-text-secondary" for="a-login-username">email</label>
+                    <input ng-model="username" class="w-input w-input-block w-input-kaiju js-email-autocomplete" placeholder="豌豆荚wiki帐号" id="a-login-username" autocomplete="off"><span class="a-input-clear" style="display: none;">×</span>
+                    <div class="w-text-warning a-error" style="display: none;"></div>
+                </div>
+                <div class="w-control-group a-field-password">
+                    <label class="w-text-secondary" for="a-login-password">密码</label>
+                    <input ng-model="password" class="w-input w-input-block w-input-kaiju" type="password" name="password" placeholder="密码" id="a-login-password">
+                    <span class="a-input-clear">×</span>
+                    <div class="w-text-warning a-error"></div>
+                </div>
+                <div class="w-control-group a-field-action">
+                    <button ng-click="loginHandler()" class="w-btn w-btn-primary w-btn-kaiju w-btn-block" type="submit">登录</button>
+                    <div class="w-text-warning a-error" style="display: block!important">{{errorMsg}}</div>
+                </div>
+                <div class="w-control-group show-ie6">
+                    <p>您正在使用的浏览器有点儿陈旧，所以不支持豌豆荚账号直接登录。您可以用微博账号或 QQ 账号登录，或者升级浏览器后再来试试。</p>
+                    <p>除了 IE6 之外，世界上还是有很多浏览器值得您尝试的，比如 <a href="https://www.google.com/intl/zh-CN/chrome/browser/">Chrome</a> 。</p>
+                </div>
+            </fieldset>
+        </form>
+    </div>

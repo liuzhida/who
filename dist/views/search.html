@@ -1,0 +1,59 @@
+<div class="who-search who-container">
+    <div class="who-search-block" ng-if="searchInfo.area">
+        <h2>与 『{{searchWord}}』 相关的PA</h2>
+        <ul class="uk-clearfix">
+            <li ng-repeat="item in searchInfo.area" class="uk-clearfix">
+                <a ng-href="/#/area/{{item.id}}">
+                    <div class="block-color"
+                        ng-style="{'background-color':item.color}">
+                        <b class="who-placehold-item-title">{{item.name}}</b>
+                    </div>
+                    <div class="block-info">
+                        <h3>{{item.name}}</h3>
+                        <h4>Product Team</h4>
+                        <p>{{item.objective}}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+
+    <div class="who-search-block" ng-if="searchInfo.product">
+        <h2>与 『{{searchWord}}』 相关的产品</h2>
+        <ul class="uk-clearfix">
+            <li ng-repeat="item in searchInfo.product" class="uk-clearfix who-placehold-item">
+                <a ng-href="/#/product/{{item.id}}">
+                    <div class="block-color"
+                        ng-style="{'background-color': item.color}">
+                        <b class="who-placehold-item-title">{{item.name}}</b>
+                    </div>
+                    <div class="block-info">
+                        <h3>{{item.name}}</h3>
+                        <h4>Product Team</h4>
+                        <p>{{item.product}}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="who-search-block" ng-if="searchInfo.person">
+        <h2>与 『{{searchWord}}』 相关的豌豆</h2>
+        <ul class="uk-clearfix">
+            <li ng-repeat="item in searchInfo.person" class="uk-clearfix">
+                <a ng-href="/#/wandou/{{item.id}}">
+                    <div class="block-img">
+                        <div class="img" style="background-image:url({{item.img|checkImg}})"></div>
+                        <!-- <img ng-src="{{item.img | checkImg}}" alt="{{item.name}}"> -->
+                    </div>
+                    <div class="block-info">
+                        <h3>{{item.name}}</h3>
+                        <h4>{{item.function}}</h4>
+                        <p>{{item.objective|limitTo:90}}</p>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

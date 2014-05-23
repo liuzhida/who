@@ -1,0 +1,58 @@
+<div class="who-detail who-container">
+    <div class="who-card-page detail-ctx">
+        <h1 class="uk-article-title">{{areaInfo.name}}</h1>
+        <p class="uk-article-lead uk-article-meta">
+            Product Area
+        </p>
+        <h2>Objective</h2>
+        <p>{{areaInfo.objective}}</p>
+
+        <h2>Email</h2>
+        <p>{{areaInfo.mail}}</p>
+
+        <h2>Leader</h2>
+        <ul class="uk-list uk-clearfix who-avatar-list">
+            <li>
+                <a ng-href="/#/wandou/{{areaInfo.owner.id}}">
+                    <div class="img" style="background-image:url({{areaInfo.owner.img|checkImg}})"></div>
+                    <!-- <img ng-src="{{areaInfo.owner.img |checkImg}}"
+                        alt="{{areaInfo.owner.name}}"> -->
+                </a>
+                <p>{{areaInfo.owner.name}}</p>
+            </li>
+        </ul>
+
+        <h2>Product Team</h2>
+        <div>
+            <ul class="who-color-blocks uk-list uk-clearfix">
+            <li ng-repeat="item in areaInfo.products">
+                    <a ng-href="/#/product/{{item.id}}">
+                        <div class="who-placehold-item front">
+                            <b class="who-placehold-item-title">{{item.name}}</b>
+                        </div>
+                        <div class="who-placehold-item back" ng-hide="true">
+                            <p>{{item.objective}}</p>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <h2>组内成员</h2>
+        <ul class="uk-list uk-clearfix who-avatar-list">
+            <li ng-repeat="item in areaInfo.members">
+                <a ng-href="/#/wandou/{{item.id}}">
+                    <div class="img" style="background-image:url({{item.img|checkImg}})"></div>
+                    <!-- <img ng-src="{{item.img |checkImg}}" alt="{{item.name}}"> -->
+                </a>
+                <p>{{item.name}}</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+
+

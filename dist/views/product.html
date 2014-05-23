@@ -1,0 +1,66 @@
+<div class="who-product who-container">
+    <div class="who-card-page">
+        <h1 class="uk-article-title">{{productInfo.name}}</h1>
+        <p class="uk-article-lead uk-article-meta">
+            Product Team
+        </p>
+        <h3 class="who-subtitle">
+            Objective
+        </h3>
+        <p>{{productInfo.objective}}</p>
+        <p><a ng-href="productInfo.ork">OKR</a></p>
+
+        <h3 class="who-subtitle">
+            Email
+        </h3>
+        <p>{{productInfo.mail}}</p>
+
+        <div class="who-columns-2">
+            <div ng-if="productInfo.pm != 'n/a'">
+                <h2>
+                    Product Manager
+                </h2>
+                <ul class="uk-list uk-clearfix who-avatar-list">
+                    <li>
+                        <a ng-href="/#/wandou/{{productInfo.pm.id}}">
+                            <!-- <img ng-src="{{productInfo.pm.img|checkImg}}" alt="{{productInfo.pm.name}}"> -->
+                            <div class="img" style="background-image:url({{productInfo.pm.img|checkImg}})"></div>
+                        </a>
+                        <p>{{productInfo.pm.name}}</p>
+                    </li>
+                </ul>
+            </div>
+            <div ng-if="productInfo.tl != 'n/a'">
+                <h2>
+                    Tech Lead
+                </h2>
+                <ul class="uk-list uk-clearfix who-avatar-list">
+                    <li>
+                        <a ng-href="/#/wandou/{{productInfo.tl.id}}">
+                            <!-- <img ng-src="{{productInfo.tl.img|checkImg}}" alt="{{productInfo.tl.name}}"> -->
+                            <div class="img" style="background-image:url({{productInfo.tl.img|checkImg}})"></div>
+                        </a>
+                        <p>{{productInfo.tl.name}}</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- <h3 class="who-subtitle">
+            Members (13)
+        </h3>
+        <div class="uk-panel">
+            <ul class="who-avatar-list">
+                <li ng-repeat="member in areaInfo.members">
+                    <a ng-href="/wandou/{{member}}"><img alt="{{member}}" data-src="holder.js/60x60/text:{{member}}"></a>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+</div>
+
+
+
+
+
+

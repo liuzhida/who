@@ -1,0 +1,215 @@
+<div class="who-card-page uk-clearfix page-wandou">
+    <div class="who-wandou-left">
+        <div ng-show="!isShowEditForm">
+            <!-- <img ng-src="{{wandouInfo.img | checkImg}}" alt=""> -->
+            <div class="img" style="background-image:url({{wandouInfo.img|checkImg}})"></div>
+            <p ng-show="currentUser.id===wandouInfo.id">
+                <a ng-click="isShowEditForm = !isShowEditForm"
+                    class="uk-button who-btn who-wandou-update-btn">更新信息</a>
+            </p>
+        </div>
+        <div ng-show="isShowEditForm">
+            <img ng-src="{{wandouInfo.img | checkImg}}" ng-show="!imageUpload">
+            <!-- <div class="img" ng-show="!imageUpload" style="background-image:url({{wandouInfo.img|checkImg}})"></div> -->
+            <img ng-show="imageUpload"
+                type="{{imageUpload.file.type}}" ng-src="{{imageUpload.dataURL}}">
+            <p>
+                <input type="file" accept="image/*" image="imageUpload">
+            </p>
+        </div>
+    </div>
+    <div class="who-wandou-right ng-animate-fadedown" ng-show="!isShowEditForm">
+        <h1 class="uk-article-title">{{wandouInfo.name}}  {{wandouInfo.id}}</h1>
+        <p class="uk-article-lead uk-article-meta">
+            {{wandouInfo.function}}
+        </p>
+        <h2>
+            职责
+        </h2>
+        <p>
+            {{wandouInfo.objective || "ಥ_ಥ，他还没填写他所负责的事情。" }}
+        </p>
+
+        <h2>
+            所属团队
+        </h2>
+        <dl class="uk-description-list uk-description-list-horizontal">
+            <dt>Project Area</dt>
+            <dd>{{wandouInfo.PA}}</dd>
+            <dt>Function Team</dt>
+            <dd>{{wandouInfo.function}}</dd>
+        </dl>
+
+        <h2>
+            个人信息
+        </h2>
+        <div class="who-columns-2">
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>邮箱</dt>
+                <dd><a href="mailto:{{wandouInfo.mail}}">{{wandouInfo.mail}}</a></dd>
+                <dt>电话</dt>
+                <!-- <dd><a href="tel:{{wandouInfo.phone}}">{{wandouInfo.phone}}</a></dd> -->
+                <dd>{{wandouInfo.phone}}</dd>
+                <dt>星座</dt>
+                <!-- zodiac -->
+                <dd>{{wandouInfo.xingzuo || '不告诉陌生人'}}</dd>
+                <dt>入职时间</dt>
+                <dd>{{wandouInfo.edate}}</dd>
+            </dl>
+            <dl class="uk-description-list uk-description-list-horizontal">
+                <dt>籍贯</dt>
+                <dd>{{wandouInfo.hometown}}</dd>
+                <dt>毕业学校</dt>
+                <dd>{{wandouInfo.school}}</dd>
+                <dt>社交帐号</dt>
+                <dd>
+                    <span ng-repeat="item in wandouInfo.socials">
+                        <a href="{{item.val}}" target="_blank">{{item.type}}</a>
+                    </span>&nbsp;&nbsp;&nbsp;
+                </dd>
+            </dl>
+        </div>
+
+        <div ng-if="!(wandouInfo.manager|isEmpty)">
+            <h2>Manager</h2>
+            <ul class="uk-list uk-clearfix who-avatar-list">
+                <li>
+                    <a ng-href="/#/wandou/{{wandouInfo.manager.id}}">
+                        <div class="img" style="background-image:url({{wandouInfo.manager.img|checkImg}})"></div>
+                        <!-- <img alt="{{wandouInfo.manager.name}}"
+                            ng-src="{{wandouInfo.manager.img|checkImg}}"> -->
+                    </a>
+                    <p>{{wandouInfo.manager.name}}</p>
+                </li>
+            </ul>
+        </div>
+        <!-- <h2>
+            同组伙伴
+        </h2>
+        <div class="uk-panel">
+            <ul class="who-avatar-list">
+                <li ng-repeat="colleague in wandouInfo.colleagues">
+                    <a ng-href="/wandou/{{colleague}}"><img alt="{{colleague}}" data-src="holder.js/60x60/text:{{colleague}}"></a>
+                    <a ng-href="/wandou/{{colleague}}"><img alt="{{colleague}}" ng-src="http://who.wandoulabs.com/static/img/{{colleague}}.JPG"></a>
+                </li>
+            </ul>
+        </div> -->
+    </div>
+    <div class="who-wandou-right ng-animate-fadedown" ng-show="isShowEditForm">
+        <h1 class="uk-article-title">{{wandouInfo.name}}</h1>
+        <form class="uk-form uk-form-horizontal" name="wnadouInfoForm">
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-t">工作描述</label>
+                <div class="uk-form-controls">
+                    <textarea cols="30" rows="5" ng-model="wandouInfo.objective"></textarea>
+                </div>
+            </div>
+            <!-- <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">Function</label>
+                <div class="uk-form-controls">
+                    <select ui-select2 ng-model="wandouInfo.function" data-placeholder="选择你的Function">
+                        <option value=""></option>
+                        <option ng-repeat="function in functionList" value="{{function}}">{{function}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">Manager</label>
+                <div class="uk-form-controls">
+                    <select ui-select2 ng-model="wandouInfo.manager" data-placeholder="选择你的Manager">
+                        <option value=""></option>
+                        <option ng-repeat="person in personList" value="{{person.id}}">{{person.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">Project Area</label>
+                <div class="uk-form-controls">
+                    <select ui-select2 ng-model="wandouInfo.PA" data-placeholder="选择你的PA">
+                        <option value=""></option>
+                        <option ng-repeat="productArea in productAreaList" value="{{productArea}}">{{productArea}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">邮箱</label>
+                <div class="uk-form-controls">
+                    <input type="text" ng-model="wandouInfo.mail" name="mail">
+                </div>
+            </div> -->
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">电话</label>
+                <div class="uk-form-controls">
+                    <input type="text" ng-model="wandouInfo.phone" name="phone">
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">星座</label>
+                <div class="uk-form-controls">
+                    <select ui-select2 ng-model="wandouInfo.xingzuo" data-placeholder="选择你的星座">
+                        <option value=""></option>
+                        <option ng-repeat="xingzuo in xingzuoList" value="{{xingzuo}}">{{xingzuo}}</option>
+                    </select>
+                    <!-- <input type="text" ng-model="wandouInfo.xingzuo" name="xingzuo"> -->
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">籍贯</label>
+                <div class="uk-form-controls">
+                    <select ui-select2 ng-model="wandouInfo.hometown" data-placeholder="选择你的籍贯">
+                        <option value=""></option>
+                        <option ng-repeat="province in provinceList" value="{{province}}">{{province}}</option>
+                    </select>
+                    <!-- <input type="text" ng-model="wandouInfo.hometown" name="hometown"> -->
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">毕业学校</label>
+                <div class="uk-form-controls">
+                    <input type="text" ng-model="wandouInfo.school" name="school">
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <label class="uk-form-label" for="form-h-it">社交帐号</label>
+                <div class="uk-form-controls">
+                    <div ng-repeat="item in wandouInfo.socials" class="who-social-row">
+                        <input type="text" class="short-input" ng-model="wandouInfo.socials[$index].type">
+                        <input type="text" class="long-input" ng-model="wandouInfo.socials[$index].val">
+                    </div>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <div class="uk-form-controls">
+                    <a ng-click="wandouInfo.socials.push({type:'', val:''})" class="uk-button">添加一个社交帐号</a>
+                </div>
+            </div>
+            <div class="uk-form-row">
+                <div class="uk-form-controls">
+                    <a ng-click="updateWandouInfoHandler()" class="uk-button who-primary-btn">完成</a>
+                    <a ng-click="isShowEditForm = !isShowEditForm" class="uk-button">取消</a>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'wandoujiawho'; // required: replace example with your forum shortname
+            // var disqus_identifier = location.hash.replace('#/wandou/','');
+            // console.log(location.hash.replace('#/wandou/',''));
+            // var disqus_url = window.location.href;
+            // console.log(disqus_url);
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+</div>
+

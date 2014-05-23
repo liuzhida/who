@@ -1,0 +1,25 @@
+<div class="who-detail who-container">
+    <div class="who-card-page detail-ctx">
+        <h1 class="uk-article-title">{{functionInfo.name}}</h1>
+        <p class="uk-article-lead uk-article-meta">
+            Function
+        </p>
+        <h2>Objective</h2>
+        <p>{{functionInfo.objective}}</p>
+
+        <h2>Email</h2>
+        <p>{{functionInfo.mail}}</p>
+
+        <h2>组内成员</h2>
+        <ul class="uk-list uk-clearfix who-avatar-list">
+            <li ng-repeat="item in functionInfo.members">
+                <a ng-href="/#/wandou/{{item.id}}">
+                    <!-- <img ng-src="{{item.img |checkImg}}" alt="{{item.name}}"> -->
+                    <div class="img" style="background-image:url({{item.img|checkImg}})"></div>
+                </a>
+                <p>{{item.name}}</p>
+            </li>
+        </ul>
+    </div>
+</div>
+
